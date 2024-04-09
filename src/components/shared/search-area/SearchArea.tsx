@@ -15,7 +15,7 @@ const SearchArea = () => {
                 type="text"
                 placeholder="Search for 'Properties in Gurgaon sector 23'"
                 value=""
-                className="focus:outline-[#716AEA08] rounded-xl border border-gray-300 py-6 pl-10 lg:w-[970px]"
+                className="focus:outline-[#716AEA08] rounded-xl border border-gray-300 py-6 pl-10 w-[320px] lg:w-[970px]"
               />
               <SearchIcon className="absolute left-3 top-1/2 h-5 w-5 -translate-y-1/2 transform text-gray-400 lg:left-3" />
             </div>
