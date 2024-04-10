@@ -37,6 +37,7 @@ const Rating: React.FC<RatingProps> = ({ value, checked }) => (
 function App() {
   const [value, setValue] = useState<number[]>([0, 100000000]);
   const [loading, setLoading] = useState(true);
+  const [searchQuery, setSearchQuery] = useState<string>('');
 
   const handleChange = (_event: Event, newValue: number | number[]) => {
     setValue(newValue as number[]);
@@ -59,11 +60,16 @@ function App() {
     return () => clearTimeout(timer);
   }, []);
 
+  const filteredData = mockData.filter(property =>
+    property.propertyName.toLowerCase().includes(searchQuery.toLowerCase())
+  );
+
+
   return (
     <div className="pt-5 space-y-4">
      <Header />
      <main className="bg-[#F6F8FA]">
-      <SearchArea />
+      <SearchArea setSearchQuery={setSearchQuery} />
       <div className="flex flex-col md:flex-row mx-auto max-w-7xl space-x-5 mt-6">
         <div className="px-5 mb-2 md:px-0 md:mb-0">
           <Card className="md:w-[320px]">
@@ -82,7 +88,8 @@ function App() {
                   <Input
                     type="text"
                     placeholder="Search by 'Developer'"
-                    value=""
+                    value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value)}
                     className="focus:outline-[#716AEA08] bg-[#F8F8F8] border outfitRegular bordersearch py-5 pl-10 lg:w-[272px]"
                   />
                   <SearchIcon className="absolute left-3 top-1/2 h-5 w-5 -translate-y-1/2 transform text-gray-400 lg:left-3" />
@@ -172,7 +179,7 @@ function App() {
          </div>
         ) : (
           <div className="space-y-5">
-            {mockData.map(property => (
+            {filteredData.map(property => (
               <PropertyCard
                 key={property.id}
                 propertyImage={property.propertyImage}
