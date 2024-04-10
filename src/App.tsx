@@ -9,8 +9,9 @@ import FilterIcon from '@/assets/filter.png'
 import PriceIcon from '@/assets/moneys.png'
 import RatingIcon from '@/assets/staroutline.png'
 import SortIcon from '@/assets/sort.png'
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { Slider } from "@mui/material"
+import ShimmerPropertyCard from "./components/shared/cards/shimmer-property-card"
 
 interface RatingProps {
   value: number;
@@ -34,6 +35,7 @@ const Rating: React.FC<RatingProps> = ({ value, checked }) => (
 
 function App() {
   const [value, setValue] = useState<number[]>([0, 100000000]);
+  const [loading, setLoading] = useState(true);
 
   const handleChange = (_event: Event, newValue: number | number[]) => {
     setValue(newValue as number[]);
@@ -45,14 +47,25 @@ function App() {
     { value: 3.5, checked: false },
     { value: 3, checked: false },
   ];
+
+  useEffect(() => {
+    // Simulate a delay to showcase the shimmer effect
+    const timer = setTimeout(() => {
+      setLoading(false);
+    }, 2000);
+
+    // Clear the timer when component unmounts
+    return () => clearTimeout(timer);
+  }, []);
+
   return (
     <div className="pt-5 space-y-4">
      <Header />
      <main className="bg-[#F6F8FA] ">
       <SearchArea />
-      <div className="flex mx-auto max-w-7xl space-x-5 mt-6">
-        <div>
-          <Card className="w-[320px]">
+      <div className="flex flex-col md:flex-row mx-auto max-w-7xl space-x-5 mt-6">
+        <div className="px-5 mb-2 md:px-0 md:mb-0">
+          <Card className="md:w-[320px]">
             <div className="space-y-12 p-6">
               <div className="space-y-3">
                 <div className="flex items-center justify-between">
@@ -110,17 +123,27 @@ function App() {
             </div>
           </Card>
         </div>
-      <div className="space-y-6">
+      <div className="space-y-6 px-5 mt-5 md:mt-0 md:px-0">
         <div className="flex justify-end">
           <div className="bg-white flex items-center outfitMedium space-x-2 px-4 py-2 cursor-pointer">
             <img src={SortIcon} className="w-5" />
             <h1>Sort By</h1>
           </div>
         </div>
-        <PropertyCard propertyImage={GodrejImage} propertyName="Godrej Properties" propertyPrice="8.30 Cr" propertyDescription="Keeping upp with its legacy, Godrej Properties has now arrived at the Sector 49, near Golf Course Extension Road, with an ultra-luxurious development. It unravels an expansive world brimming with opulence, whose unmatched beauty." plotArea="60 Acres" rooms="4BHK" ratings="4.5" bookingAmt="₹ 10,00,000" />
-        <PropertyCard propertyImage={GodrejImage} propertyName="Godrej Properties" propertyPrice="8.30 Cr" propertyDescription="Keeping upp with its legacy, Godrej Properties has now arrived at the Sector 49, near Golf Course Extension Road, with an ultra-luxurious development. It unravels an expansive world brimming with opulence, whose unmatched beauty." plotArea="60 Acres" rooms="4BHK" ratings="4.5" bookingAmt="₹ 10,00,000" />
-        <PropertyCard propertyImage={GodrejImage} propertyName="Godrej Properties" propertyPrice="8.30 Cr" propertyDescription="Keeping upp with its legacy, Godrej Properties has now arrived at the Sector 49, near Golf Course Extension Road, with an ultra-luxurious development. It unravels an expansive world brimming with opulence, whose unmatched beauty." plotArea="60 Acres" rooms="4BHK" ratings="4.5" bookingAmt="₹ 10,00,000" />
-        <PropertyCard propertyImage={GodrejImage} propertyName="Godrej Properties" propertyPrice="8.30 Cr" propertyDescription="Keeping upp with its legacy, Godrej Properties has now arrived at the Sector 49, near Golf Course Extension Road, with an ultra-luxurious development. It unravels an expansive world brimming with opulence, whose unmatched beauty." plotArea="60 Acres" rooms="4BHK" ratings="4.5" bookingAmt="₹ 10,00,000" />
+        {loading ? (
+         <div className="space-y-4">
+           <ShimmerPropertyCard />
+           <ShimmerPropertyCard />
+           <ShimmerPropertyCard />
+         </div>
+        ) : (
+          <>
+            <PropertyCard propertyImage={GodrejImage} propertyName="Godrej Properties" propertyPrice="8.30 Cr" propertyDescription="Keeping upp with its legacy, Godrej Properties has now arrived at the Sector 49, near Golf Course Extension Road, with an ultra-luxurious development. It unravels an expansive world brimming with opulence, whose unmatched beauty." plotArea="60 Acres" rooms="4BHK" ratings="4.5" bookingAmt="₹ 10,00,000" />
+            <PropertyCard propertyImage={GodrejImage} propertyName="Godrej Properties" propertyPrice="8.30 Cr" propertyDescription="Keeping upp with its legacy, Godrej Properties has now arrived at the Sector 49, near Golf Course Extension Road, with an ultra-luxurious development. It unravels an expansive world brimming with opulence, whose unmatched beauty." plotArea="60 Acres" rooms="4BHK" ratings="4.5" bookingAmt="₹ 10,00,000" />
+            <PropertyCard propertyImage={GodrejImage} propertyName="Godrej Properties" propertyPrice="8.30 Cr" propertyDescription="Keeping upp with its legacy, Godrej Properties has now arrived at the Sector 49, near Golf Course Extension Road, with an ultra-luxurious development. It unravels an expansive world brimming with opulence, whose unmatched beauty." plotArea="60 Acres" rooms="4BHK" ratings="4.5" bookingAmt="₹ 10,00,000" />
+            <PropertyCard propertyImage={GodrejImage} propertyName="Godrej Properties" propertyPrice="8.30 Cr" propertyDescription="Keeping upp with its legacy, Godrej Properties has now arrived at the Sector 49, near Golf Course Extension Road, with an ultra-luxurious development. It unravels an expansive world brimming with opulence, whose unmatched beauty." plotArea="60 Acres" rooms="4BHK" ratings="4.5" bookingAmt="₹ 10,00,000" />
+          </>
+        )}
       </div>
      </div>
      </main>

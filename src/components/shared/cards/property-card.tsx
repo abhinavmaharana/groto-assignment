@@ -18,9 +18,9 @@ const PropertyCard: React.FC<Props> = (props) => {
     <Card className="border border-gray-200 rounded-lg shadow-md">
       <div className='flex items-center space-x-5'>
         <div>
-          <img src={props.propertyImage} className='w-[600px] h-[256px]' />
+          <img src={props.propertyImage} className='w-[400px] h-[250px] md:w-[600px] md:h-[256px]' />
         </div>
-        <div className='px-5 space-y-4'>
+        <div className='p-5 space-y-2 md:px-5 md:space-y-4'>
           <div className='flex items-center justify-between'>
             <h2 className="font-semibold text-[#1C1C1C] text-xl outfitSemibold">{props.propertyName}</h2>
             <p className="text-[#533FDB] font-bold text-xl outfitBold">{props.propertyPrice}</p>
