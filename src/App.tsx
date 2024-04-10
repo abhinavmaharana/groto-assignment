@@ -12,7 +12,7 @@ import { useEffect, useState } from "react"
 import { Slider } from "@mui/material"
 import ShimmerPropertyCard from "@/components/shared/cards/shimmer-property-card"
 import { mockData } from "./utils/mockData"
-import { DropdownMenu, DropdownMenuContent, DropdownMenuGroup, DropdownMenuItem, DropdownMenuLabel, DropdownMenuPortal, DropdownMenuSeparator, DropdownMenuShortcut, DropdownMenuSub, DropdownMenuSubContent, DropdownMenuSubTrigger, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
+import { DropdownMenu, DropdownMenuContent, DropdownMenuGroup, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
 
 interface RatingProps {
   value: number;
