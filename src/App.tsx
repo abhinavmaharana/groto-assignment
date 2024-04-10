@@ -1,8 +1,8 @@
-import PropertyCard from "./components/shared/cards/property-card"
-import Header from "./components/shared/navigation/Header"
-import SearchArea from "./components/shared/search-area/SearchArea"
-import { Card } from "./components/ui/card"
-import { Input } from "./components/ui/input"
+import PropertyCard from "@/components/shared/cards/property-card"
+import Header from "@/components/shared/navigation/Header"
+import SearchArea from "@/components/shared/search-area/SearchArea"
+import { Card } from "@/components/ui/card"
+import { Input } from "@/components/ui/input"
 import { SearchIcon } from "lucide-react"
 import FilterIcon from '@/assets/filter.png'
 import PriceIcon from '@/assets/moneys.png'
@@ -10,8 +10,9 @@ import RatingIcon from '@/assets/staroutline.png'
 import SortIcon from '@/assets/sort.png'
 import { useEffect, useState } from "react"
 import { Slider } from "@mui/material"
-import ShimmerPropertyCard from "./components/shared/cards/shimmer-property-card"
+import ShimmerPropertyCard from "@/components/shared/cards/shimmer-property-card"
 import { mockData } from "./utils/mockData"
+import { DropdownMenu, DropdownMenuContent, DropdownMenuGroup, DropdownMenuItem, DropdownMenuLabel, DropdownMenuPortal, DropdownMenuSeparator, DropdownMenuShortcut, DropdownMenuSub, DropdownMenuSubContent, DropdownMenuSubTrigger, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
 
 interface RatingProps {
   value: number;
@@ -125,10 +126,43 @@ function App() {
         </div>
       <div className="space-y-6 px-5 mt-5 md:mt-0 md:px-0">
         <div className="flex justify-end">
-          <div className="bg-white flex items-center outfitMedium space-x-2 px-4 py-2 cursor-pointer">
-            <img src={SortIcon} className="w-5" />
-            <h1>Sort By</h1>
-          </div>
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <button className="bg-white flex items-center outfitMedium space-x-2 px-4 py-2 cursor-pointer">
+                <img src={SortIcon} className="w-5" />
+                <h1>Sort By</h1>
+              </button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent className="w-56 space-y-3 mr-28">
+              <div>
+                <DropdownMenuLabel>Property Price</DropdownMenuLabel>
+                <DropdownMenuGroup>
+                  <DropdownMenuItem>
+                    High to Low
+                  </DropdownMenuItem>
+                  <DropdownMenuItem>
+                    Low to High
+                  </DropdownMenuItem>
+                </DropdownMenuGroup>
+              </div>
+              <DropdownMenuSeparator />
+              <div>
+                <DropdownMenuLabel>Plot Area</DropdownMenuLabel>
+                <DropdownMenuGroup>
+                  <DropdownMenuItem>
+                    High to Low
+                  </DropdownMenuItem>
+                  <DropdownMenuItem>
+                    Low to High
+                  </DropdownMenuItem>
+                </DropdownMenuGroup>
+              </div>
+              <DropdownMenuSeparator />
+              <div>
+                <DropdownMenuLabel>Ratings</DropdownMenuLabel>
+              </div>
+            </DropdownMenuContent>
+          </DropdownMenu>
         </div>
         {loading ? (
          <div className="space-y-4">
