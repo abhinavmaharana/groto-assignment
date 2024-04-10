@@ -16,7 +16,7 @@ type Props = {
 const PropertyCard: React.FC<Props> = (props) => {
   return (
     <Card className="border border-gray-200 rounded-lg shadow-md">
-      <div className='flex items-center space-x-5'>
+      <div className='flex flex-col md:flex-row items-center md:space-x-5 p-5 md:p-0'>
         <div>
           <img src={props.propertyImage} className='w-[400px] h-[250px] md:w-[600px] md:h-[256px]' />
         </div>
