@@ -1,7 +1,6 @@
 import PropertyCard from "./components/shared/cards/property-card"
 import Header from "./components/shared/navigation/Header"
 import SearchArea from "./components/shared/search-area/SearchArea"
-import GodrejImage from '@/assets/property/godrej.png'
 import { Card } from "./components/ui/card"
 import { Input } from "./components/ui/input"
 import { SearchIcon } from "lucide-react"
