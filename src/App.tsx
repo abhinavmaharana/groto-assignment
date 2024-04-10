@@ -12,6 +12,7 @@ import SortIcon from '@/assets/sort.png'
 import { useEffect, useState } from "react"
 import { Slider } from "@mui/material"
 import ShimmerPropertyCard from "./components/shared/cards/shimmer-property-card"
+import { mockData } from "./utils/mockData"
 
 interface RatingProps {
   value: number;
@@ -61,7 +62,7 @@ function App() {
   return (
     <div className="pt-5 space-y-4">
      <Header />
-     <main className="bg-[#F6F8FA] ">
+     <main className="bg-[#F6F8FA]">
       <SearchArea />
       <div className="flex flex-col md:flex-row mx-auto max-w-7xl space-x-5 mt-6">
         <div className="px-5 mb-2 md:px-0 md:mb-0">
@@ -137,12 +138,21 @@ function App() {
            <ShimmerPropertyCard />
          </div>
         ) : (
-          <>
-            <PropertyCard propertyImage={GodrejImage} propertyName="Godrej Properties" propertyPrice="8.30 Cr" propertyDescription="Keeping upp with its legacy, Godrej Properties has now arrived at the Sector 49, near Golf Course Extension Road, with an ultra-luxurious development. It unravels an expansive world brimming with opulence, whose unmatched beauty." plotArea="60 Acres" rooms="4BHK" ratings="4.5" bookingAmt="₹ 10,00,000" />
-            <PropertyCard propertyImage={GodrejImage} propertyName="Godrej Properties" propertyPrice="8.30 Cr" propertyDescription="Keeping upp with its legacy, Godrej Properties has now arrived at the Sector 49, near Golf Course Extension Road, with an ultra-luxurious development. It unravels an expansive world brimming with opulence, whose unmatched beauty." plotArea="60 Acres" rooms="4BHK" ratings="4.5" bookingAmt="₹ 10,00,000" />
-            <PropertyCard propertyImage={GodrejImage} propertyName="Godrej Properties" propertyPrice="8.30 Cr" propertyDescription="Keeping upp with its legacy, Godrej Properties has now arrived at the Sector 49, near Golf Course Extension Road, with an ultra-luxurious development. It unravels an expansive world brimming with opulence, whose unmatched beauty." plotArea="60 Acres" rooms="4BHK" ratings="4.5" bookingAmt="₹ 10,00,000" />
-            <PropertyCard propertyImage={GodrejImage} propertyName="Godrej Properties" propertyPrice="8.30 Cr" propertyDescription="Keeping upp with its legacy, Godrej Properties has now arrived at the Sector 49, near Golf Course Extension Road, with an ultra-luxurious development. It unravels an expansive world brimming with opulence, whose unmatched beauty." plotArea="60 Acres" rooms="4BHK" ratings="4.5" bookingAmt="₹ 10,00,000" />
-          </>
+          <div className="space-y-5">
+            {mockData.map(property => (
+              <PropertyCard
+                key={property.id}
+                propertyImage={property.propertyImage}
+                propertyName={property.propertyName}
+                propertyPrice={property.propertyPrice}
+                propertyDescription={property.propertyDescription}
+                plotArea={property.plotArea}
+                rooms={property.rooms}
+                ratings={property.ratings}
+                bookingAmt={property.bookingAmt}
+              />
+            ))}
+          </div>
         )}
       </div>
      </div>
