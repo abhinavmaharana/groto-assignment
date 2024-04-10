@@ -74,3 +74,79 @@
       @apply bg-background text-foreground;
     }
   }
+
+  .outfitThin {
+    font-family: "Outfit", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 100;
+    font-style: normal;
+  }
+
+  .outfitExtralight {
+    font-family: "Outfit", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 200;
+    font-style: normal;
+  }
+
+  .outfitLight {
+    font-family: "Outfit", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 300;
+    font-style: normal;
+  }
+
+  .outfitRegular {
+    font-family: "Outfit", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-style: normal;
+  }
+
+  .outfitMedium {
+    font-family: "Outfit", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 500;
+    font-style: normal;
+  }
+
+  .outfitSemibold {
+    font-family: "Outfit", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 600;
+    font-style: normal;
+  }
+
+  .outfitBold {
+    font-family: "Outfit", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 700;
+    font-style: normal;
+  }
+
+  .outfitExtrabold {
+    font-family: "Outfit", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 800;
+    font-style: normal;
+  }
+
+  .outfitBlack {
+    font-family: "Outfit", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 900;
+    font-style: normal;
+  }
+
+  .bordersearch{
+    box-shadow: 0px 29px 63px 0px #F3F3F31A;
+
+box-shadow: 0px 114px 114px 0px #F3F3F317;
+
+box-shadow: 0px 257px 154px 0px #F3F3F30D;
+
+box-shadow: 0px 456px 182px 0px #F3F3F303;
+
+box-shadow: 1px 713px 200px 0px #F3F3F300;
+
+  }

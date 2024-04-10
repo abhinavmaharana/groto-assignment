@@ -9,8 +9,42 @@ import FilterIcon from '@/assets/filter.png'
 import PriceIcon from '@/assets/moneys.png'
 import RatingIcon from '@/assets/staroutline.png'
 import SortIcon from '@/assets/sort.png'
+import { useState } from "react"
+import { Slider } from "@mui/material"
+
+interface RatingProps {
+  value: number;
+  checked: boolean;
+}
+
+function valuetext(value: number) {
+  return `${value}°C`;
+}
+
+const Rating: React.FC<RatingProps> = ({ value, checked }) => (
+  <div className="flex gap-4 mt-4 text-base leading-6 text-neutral-500">
+    <div
+      className={`shrink-0 my-auto w-4 h-4 rounded-full border border-solid ${
+        checked ? "border-4 border-indigo-600" : "border-neutral-300"
+      } stroke-[1px]`}
+    />
+    <div className="outfitRegular">{value} +</div>
+  </div>
+);
 
 function App() {
+  const [value, setValue] = useState<number[]>([0, 100000000]);
+
+  const handleChange = (_event: Event, newValue: number | number[]) => {
+    setValue(newValue as number[]);
+  };
+
+  const ratings = [
+    { value: 4.5, checked: true },
+    { value: 4, checked: false },
+    { value: 3.5, checked: false },
+    { value: 3, checked: false },
+  ];
   return (
     <div className="pt-5 space-y-4">
      <Header />
@@ -24,18 +58,18 @@ function App() {
                 <div className="flex items-center justify-between">
                   <div className="flex items-center space-x-1">
                     <img src={FilterIcon} className="w-5" />
-                    <h1 className="text-[#4D4D4D] text-lg">Filter</h1>
+                    <h1 className="text-[#4D4D4D] text-lg outfitMedium">Filter</h1>
                   </div>
                   <div>
-                    <h1 className="text-[#533FDB] text-sm cursor-pointer">Clear All</h1>
+                    <h1 className="text-[#533FDB] text-sm cursor-pointer outfitRegular">Clear All</h1>
                   </div>
                 </div>
-                <div className="relative">
+                <div className="relative text-[#1C1C1C66]">
                   <Input
                     type="text"
-                    placeholder="Search"
+                    placeholder="Search by 'Developer'"
                     value=""
-                    className="focus:outline-[#716AEA08] rounded-xl border border-gray-300 py-5 pl-10 lg:w-[272px]"
+                    className="focus:outline-[#716AEA08] bg-[#F8F8F8] border outfitRegular bordersearch py-5 pl-10 lg:w-[272px]"
                   />
                   <SearchIcon className="absolute left-3 top-1/2 h-5 w-5 -translate-y-1/2 transform text-gray-400 lg:left-3" />
                 </div>
@@ -43,19 +77,34 @@ function App() {
               <div>
                 <div className="flex items-center space-x-1">
                   <img src={PriceIcon} className="w-5" />
-                  <h1 className="text-[#1C1C1C] text-lg">Price</h1>
+                  <h1 className="text-[#1C1C1C] text-lg outfitMedium">Price</h1>
                 </div>
-                <div>
-
+                <div className="mt-2 w-auto max-w-[250px]">
+                  <div className="relative">
+                    <Slider
+                      getAriaLabel={() => 'Property Price Range'}
+                      value={value}
+                      className="ml-2"
+                      onChange={handleChange}
+                      valueLabelDisplay="auto"
+                      getAriaValueText={valuetext}
+                    />
+                  </div>
+                  <div className="flex items-center outfitRegular justify-between text-sm text-neutral-600">
+                    <div className="">₹ {value[0]}</div>
+                    <div className="">₹ {value}</div>
+                  </div>
                 </div>
               </div>
               <div>
                 <div className="flex items-center space-x-1">
                   <img src={RatingIcon} className="w-5" />
-                  <h1 className="text-[#1C1C1C] text-lg">Rating</h1>
+                  <h1 className="text-[#1C1C1C] text-lg outfitMedium">Rating</h1>
                 </div>
                 <div>
-
+                {ratings.map((rating) => (
+                  <Rating key={rating.value} value={rating.value} checked={rating.checked} />
+                ))}
                 </div>
               </div>
             </div>
@@ -63,7 +112,7 @@ function App() {
         </div>
       <div className="space-y-6">
         <div className="flex justify-end">
-          <div className="bg-white flex items-center space-x-2 px-4 py-2 cursor-pointer">
+          <div className="bg-white flex items-center outfitMedium space-x-2 px-4 py-2 cursor-pointer">
             <img src={SortIcon} className="w-5" />
             <h1>Sort By</h1>
           </div>
