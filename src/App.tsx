@@ -1,61 +1,23 @@
 import PropertyCard from "@/components/shared/cards/property-card"
 import Header from "@/components/shared/navigation/Header"
 import SearchArea from "@/components/shared/search-area/SearchArea"
-import { Card } from "@/components/ui/card"
-import { Input } from "@/components/ui/input"
-import { SearchIcon } from "lucide-react"
-import FilterIcon from '@/assets/filter.png'
-import PriceIcon from '@/assets/moneys.png'
-import RatingIcon from '@/assets/staroutline.png'
 import SortIcon from '@/assets/sort.png'
 import { useEffect, useState } from "react"
-import { Slider } from "@mui/material"
 import ShimmerPropertyCard from "@/components/shared/cards/shimmer-property-card"
 import { mockData } from "./utils/mockData"
 import { DropdownMenu, DropdownMenuContent, DropdownMenuGroup, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
-
-interface RatingProps {
-  value: number;
-  checked: boolean;
-}
-
-function valuetext(value: number) {
-  return `${value}°C`;
-}
-
-const Rating: React.FC<RatingProps> = ({ value, checked }) => (
-  <div className="flex gap-4 mt-4 text-base leading-6 text-neutral-500">
-    <div
-      className={`shrink-0 my-auto w-4 h-4 rounded-full border border-solid ${
-        checked ? "border-4 border-indigo-600" : "border-neutral-300"
-      } stroke-[1px]`}
-    />
-    <div className="outfitRegular">{value} +</div>
-  </div>
-);
+import FilterCard from "./components/shared/cards/filter-card"
 
 function App() {
-  const [value, setValue] = useState<number[]>([0, 100000000]);
   const [loading, setLoading] = useState(true);
   const [searchQuery, setSearchQuery] = useState<string>('');
   const [sortBy, setSortBy] = useState<string>("");
   const [sortOrder, setSortOrder] = useState<string>("");
-  const [dropdownOpen, setDropdownOpen] = useState<boolean>(false); 
-
-  const handleChange = (_event: Event, newValue: number | number[]) => {
-    setValue(newValue as number[]);
-  };
+  const [dropdownOpen, setDropdownOpen] = useState<boolean>(false);
 
   const toggleDropdown = () => {
     setDropdownOpen(!dropdownOpen);
   };
-
-  const ratings = [
-    { value: 4.5, checked: true },
-    { value: 4, checked: false },
-    { value: 3.5, checked: false },
-    { value: 3, checked: false },
-  ];
 
   useEffect(() => {
     // Simulate a delay to showcase the shimmer effect
@@ -67,13 +29,13 @@ function App() {
     return () => clearTimeout(timer);
   }, []);
 
-  const filteredData = mockData.filter(property =>
+  const filteredData1 = mockData.filter(property =>
     property.propertyName.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
 
   // Sorting function based on the current sorting criteria and order
-  const sortedData = [...filteredData].sort((a, b) => {
+  const sortedData = [...filteredData1].sort((a, b) => {
     switch (sortBy) {
       case "price":
         return sortOrder === "asc" ? Number(a.propertyPrice) - Number(b.propertyPrice) : Number(b.propertyPrice) - Number(a.propertyPrice);
@@ -96,64 +58,7 @@ function App() {
       <SearchArea setSearchQuery={setSearchQuery} />
       <div className="flex flex-col md:flex-row mx-auto max-w-7xl space-x-5 mt-6">
         <div className="px-5 mb-2 md:px-0 md:mb-0">
-          <Card className="md:w-[320px]">
-            <div className="space-y-12 p-6">
-              <div className="space-y-3">
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center space-x-1">
-                    <img src={FilterIcon} className="w-5" />
-                    <h1 className="text-[#4D4D4D] text-lg outfitMedium">Filter</h1>
-                  </div>
-                  <div>
-                    <h1 className="text-[#533FDB] text-sm cursor-pointer outfitRegular">Clear All</h1>
-                  </div>
-                </div>
-                <div className="relative text-[#1C1C1C66]">
-                  <Input
-                    type="text"
-                    placeholder="Search by 'Developer'"
-                    value={searchQuery}
-                    onChange={(e) => setSearchQuery(e.target.value)}
-                    className="focus:outline-[#716AEA08] bg-[#F8F8F8] border outfitRegular bordersearch py-5 pl-10 lg:w-[272px]"
-                  />
-                  <SearchIcon className="absolute left-3 top-1/2 h-5 w-5 -translate-y-1/2 transform text-gray-400 lg:left-3" />
-                </div>
-              </div>
-              <div>
-                <div className="flex items-center space-x-1">
-                  <img src={PriceIcon} className="w-5" />
-                  <h1 className="text-[#1C1C1C] text-lg outfitMedium">Price</h1>
-                </div>
-                <div className="mt-2 w-auto max-w-[250px]">
-                  <div className="relative">
-                    <Slider
-                      getAriaLabel={() => 'Property Price Range'}
-                      value={value}
-                      className="ml-2"
-                      onChange={handleChange}
-                      valueLabelDisplay="auto"
-                      getAriaValueText={valuetext}
-                    />
-                  </div>
-                  <div className="flex items-center outfitRegular justify-between text-sm text-neutral-600">
-                    <div className="">₹ {value[0]}</div>
-                    <div className="">₹ {value}</div>
-                  </div>
-                </div>
-              </div>
-              <div>
-                <div className="flex items-center space-x-1">
-                  <img src={RatingIcon} className="w-5" />
-                  <h1 className="text-[#1C1C1C] text-lg outfitMedium">Rating</h1>
-                </div>
-                <div>
-                {ratings.map((rating) => (
-                  <Rating key={rating.value} value={rating.value} checked={rating.checked} />
-                ))}
-                </div>
-              </div>
-            </div>
-          </Card>
+          <FilterCard />
         </div>
       <div className="space-y-6 px-5 mt-5 md:mt-0 md:px-0">
         <div className="flex justify-end">
