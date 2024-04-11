@@ -5,12 +5,24 @@ import React from 'react';
 type Props = {
     propertyImage: string,
     propertyName: string,
-    propertyPrice: string,
+    propertyPrice: number,
     propertyDescription: string,
     plotArea: string,
     rooms: string,
     ratings: string,
     bookingAmt: string
+}
+
+// Function to format property price
+const formatPrice = (price: number): string => {
+  // If price is greater than or equal to 1 crore, convert it to crore format
+  if (price >= 10000000) {
+    const crorePrice = price / 10000000;
+    return `${crorePrice.toFixed(1)} Cr`;
+  }
+  // Otherwise, return price in lakhs
+  const lakhPrice = price / 100000;
+  return `${lakhPrice.toFixed(0)} Lakhs`;
 }
 
 const PropertyCard: React.FC<Props> = (props) => {
@@ -23,7 +35,7 @@ const PropertyCard: React.FC<Props> = (props) => {
         <div className='p-5 space-y-2 md:px-5 md:space-y-4'>
           <div className='flex items-center justify-between'>
             <h2 className="font-semibold text-[#1C1C1C] text-xl outfitSemibold">{props.propertyName}</h2>
-            <p className="text-[#533FDB] font-bold text-xl outfitBold">{props.propertyPrice}</p>
+            <p className="text-[#533FDB] font-bold text-xl outfitBold">{formatPrice(props.propertyPrice)}</p>
           </div>
           <div className=''>
             <p className="text-[#6D6D6D] text-sm outfitLight">{props.propertyDescription}</p>

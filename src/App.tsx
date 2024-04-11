@@ -38,9 +38,16 @@ function App() {
   const [value, setValue] = useState<number[]>([0, 100000000]);
   const [loading, setLoading] = useState(true);
   const [searchQuery, setSearchQuery] = useState<string>('');
+  const [sortBy, setSortBy] = useState<string>("");
+  const [sortOrder, setSortOrder] = useState<string>("");
+  const [dropdownOpen, setDropdownOpen] = useState<boolean>(false); 
 
   const handleChange = (_event: Event, newValue: number | number[]) => {
     setValue(newValue as number[]);
+  };
+
+  const toggleDropdown = () => {
+    setDropdownOpen(!dropdownOpen);
   };
 
   const ratings = [
@@ -64,6 +71,23 @@ function App() {
     property.propertyName.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
+
+  // Sorting function based on the current sorting criteria and order
+  const sortedData = [...filteredData].sort((a, b) => {
+    switch (sortBy) {
+      case "price":
+        return sortOrder === "asc" ? Number(a.propertyPrice) - Number(b.propertyPrice) : Number(b.propertyPrice) - Number(a.propertyPrice);
+      case "rating":
+        // Parse ratings as numbers
+        const ratingA = parseFloat(a.ratings);
+        const ratingB = parseFloat(b.ratings);
+        return sortOrder === "asc" ? ratingA - ratingB : ratingB - ratingA;
+      case "alphabetical":
+        return sortOrder === "asc" ? a.propertyName.localeCompare(b.propertyName) : b.propertyName.localeCompare(a.propertyName);
+      default:
+        return 0;
+    }
+  });
 
   return (
     <div className="pt-5 space-y-4">
@@ -135,19 +159,24 @@ function App() {
         <div className="flex justify-end">
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
-              <button className="bg-white flex items-center outfitMedium space-x-2 px-4 py-2 cursor-pointer">
+              <button className="bg-white flex items-center outfitMedium space-x-2 px-4 py-2 cursor-pointer" onClick={toggleDropdown}>
                 <img src={SortIcon} className="w-5" />
                 <h1>Sort By</h1>
               </button>
             </DropdownMenuTrigger>
-            <DropdownMenuContent className="w-56 space-y-3 mr-28">
+            {dropdownOpen && (
+            <DropdownMenuContent className="w-[320px] bg-white space-y-2 -mt-11">
+              <button className="bg-white flex items-center outfitMedium space-x-2 px-4 py-2 cursor-pointer">
+                <img src={SortIcon} className="w-5" />
+                <h1>Sort By</h1>
+              </button>
               <div>
                 <DropdownMenuLabel>Property Price</DropdownMenuLabel>
                 <DropdownMenuGroup>
-                  <DropdownMenuItem>
+                  <DropdownMenuItem onClick={() => { setSortBy("price"); setSortOrder("desc"); }}>
                     High to Low
                   </DropdownMenuItem>
-                  <DropdownMenuItem>
+                  <DropdownMenuItem onClick={() => { setSortBy("price"); setSortOrder("asc"); }}>
                     Low to High
                   </DropdownMenuItem>
                 </DropdownMenuGroup>
@@ -167,8 +196,29 @@ function App() {
               <DropdownMenuSeparator />
               <div>
                 <DropdownMenuLabel>Ratings</DropdownMenuLabel>
+                <DropdownMenuGroup>
+                  <DropdownMenuItem onClick={() => { setSortBy("rating"); setSortOrder("desc"); }}>
+                    High to Low
+                  </DropdownMenuItem>
+                  <DropdownMenuItem onClick={() => { setSortBy("rating"); setSortOrder("asc"); }}>
+                    Low to High
+                  </DropdownMenuItem>
+                </DropdownMenuGroup>
               </div>
+              <DropdownMenuSeparator />
+              <div>
+                    <DropdownMenuLabel>Alphabetical</DropdownMenuLabel>
+                    <DropdownMenuGroup>
+                      <DropdownMenuItem onClick={() => { setSortBy("alphabetical"); setSortOrder("asc"); }}>
+                        A to Z
+                      </DropdownMenuItem>
+                      <DropdownMenuItem onClick={() => { setSortBy("alphabetical"); setSortOrder("desc"); }}>
+                        Z to A
+                      </DropdownMenuItem>
+                    </DropdownMenuGroup>
+                  </div>
             </DropdownMenuContent>
+            )}
           </DropdownMenu>
         </div>
         {loading ? (
@@ -179,7 +229,7 @@ function App() {
          </div>
         ) : (
           <div className="space-y-5">
-            {filteredData.map(property => (
+            {sortedData.map((property) => (
               <PropertyCard
                 key={property.id}
                 propertyImage={property.propertyImage}
