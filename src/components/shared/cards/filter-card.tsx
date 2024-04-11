@@ -52,6 +52,8 @@ const FilterCard = () => {
     const [filterApplied, setFilterApplied] = useState<boolean>(false);
     const [filteredData, setFilteredData] = useState<PropertyType[]>([]);
 
+    console.log(loading,filteredData)
+
     const handleChange = (_event: Event, newValue: number | number[]) => {
         setValue(newValue as number[]);
     };
