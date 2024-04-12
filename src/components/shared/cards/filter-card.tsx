@@ -38,9 +38,9 @@ function valuetext(value: number) {
 }
 
 const Rating: React.FC<RatingProps> = ({ value, checked, onChange }) => (
-  <div className="flex gap-4 mt-4 text-base leading-6 text-neutral-500">
+  <div className="mt-4 flex gap-4 text-base leading-6 text-neutral-500">
     <div
-      className={`shrink-0 my-auto w-4 h-4 rounded-full border border-solid ${
+      className={`my-auto h-4 w-4 shrink-0 rounded-full border border-solid ${
         checked ? "border-4 border-indigo-600" : "border-neutral-300"
       } stroke-[1px]`}
       onClick={() => onChange(value)}
@@ -49,7 +49,10 @@ const Rating: React.FC<RatingProps> = ({ value, checked, onChange }) => (
   </div>
 );
 
-const FilterCard: React.FC<FilterCardProps> = ({ setFilteredData, setLoading }) => {
+const FilterCard: React.FC<FilterCardProps> = ({
+  setFilteredData,
+  setLoading,
+}) => {
   const [value, setValue] = useState<number[]>([0, 100000000]);
   const [selectedRatings, setSelectedRatings] = useState<number[]>([]);
   const [searchQuery, setSearchQuery] = useState<string>("");
@@ -61,7 +64,7 @@ const FilterCard: React.FC<FilterCardProps> = ({ setFilteredData, setLoading }) 
     searchQuery: "",
   });
 
-  console.log(filters)
+  console.log(filters);
 
   const handleChange = (_event: Event, newValue: number | number[]) => {
     setValue(newValue as number[]);
@@ -77,7 +80,7 @@ const FilterCard: React.FC<FilterCardProps> = ({ setFilteredData, setLoading }) 
       }
     });
   };
-  
+
   useEffect(() => {
     setFilters((prevFilters: any) => ({
       ...prevFilters,
@@ -87,45 +90,51 @@ const FilterCard: React.FC<FilterCardProps> = ({ setFilteredData, setLoading }) 
 
   useEffect(() => {
     const isFiltersChanged =
-      JSON.stringify(filters) !== JSON.stringify({
+      JSON.stringify(filters) !==
+      JSON.stringify({
         value: [0, 100000000],
         selectedRatings: [],
         searchQuery: "",
       });
     setFiltersChanged(isFiltersChanged);
   }, [filters]);
-  
-  const applyFilters = () => {  
+
+  const applyFilters = () => {
     // Set loading state to true to show shimmer
     setLoading(true);
-  
+
     // Simulate filtering delay
     setTimeout(() => {
       // Filter data based on selected options
-      const newData = mockData.filter(property => {
+      const newData = mockData.filter((property) => {
         // Apply price filter
-        const priceInRange = property.propertyPrice >= value[0] * 10000000 && property.propertyPrice <= value[1] * 10000000;
+        const priceInRange =
+          property.propertyPrice >= value[0] * 10000000 &&
+          property.propertyPrice <= value[1] * 10000000;
         // Convert property.ratings to a number for comparison
         const propertyRating = parseFloat(property.ratings);
         // Apply rating filter if ratings are selected
-        const meetsRating = selectedRatings.length === 0 || selectedRatings.includes(propertyRating);
+        const meetsRating =
+          selectedRatings.length === 0 ||
+          selectedRatings.includes(propertyRating);
         // Apply search query filter
-        const matchesSearch = property.propertyName.toLowerCase().includes(searchQuery.toLowerCase());
-  
+        const matchesSearch = property.propertyName
+          .toLowerCase()
+          .includes(searchQuery.toLowerCase());
+
         return priceInRange && meetsRating && matchesSearch;
       });
-  
-      console.log('Filtered Data:', newData);
-  
+
+      console.log("Filtered Data:", newData);
+
       // Update filtered data and set filterApplied to true
       setFilteredData(newData);
       setFilterApplied(true);
-  
+
       // Reset loading state after filtering is complete
       setLoading(false);
     }, 2000); // Simulated delay time
   };
-  
 
   const PriceRangeSlider = styled(Slider)(({ theme }) => ({
     color: "#716AEA",
@@ -183,7 +192,7 @@ const FilterCard: React.FC<FilterCardProps> = ({ setFilteredData, setLoading }) 
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-1">
               <img src={FilterIcon} className="w-5" />
-              <h1 className="text-[#4D4D4D] text-lg outfitMedium">Filter</h1>
+              <h1 className="outfitMedium text-lg text-[#4D4D4D]">Filter</h1>
             </div>
             <div>
               <h1
@@ -198,7 +207,7 @@ const FilterCard: React.FC<FilterCardProps> = ({ setFilteredData, setLoading }) 
                   setSearchQuery("");
                   setFilterApplied(false);
                 }}
-                className="text-[#533FDB] text-sm cursor-pointer outfitRegular"
+                className="outfitRegular cursor-pointer text-sm text-[#533FDB]"
               >
                 Clear All
               </h1>
@@ -210,7 +219,7 @@ const FilterCard: React.FC<FilterCardProps> = ({ setFilteredData, setLoading }) 
               placeholder="Search by 'Developer'"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="focus:outline-[#716AEA08] bg-[#F8F8F8] border outfitRegular bordersearch py-5 pl-10 lg:w-[272px]"
+              className="outfitRegular bordersearch border bg-[#F8F8F8] py-5 pl-10 focus:outline-[#716AEA08] lg:w-[272px]"
             />
             <SearchIcon className="absolute left-3 top-1/2 h-5 w-5 -translate-y-1/2 transform text-gray-400 lg:left-3" />
           </div>
@@ -218,7 +227,7 @@ const FilterCard: React.FC<FilterCardProps> = ({ setFilteredData, setLoading }) 
         <div>
           <div className="flex items-center space-x-1">
             <img src={PriceIcon} className="w-5" />
-            <h1 className="text-[#1C1C1C] text-lg outfitMedium">Price</h1>
+            <h1 className="outfitMedium text-lg text-[#1C1C1C]">Price</h1>
           </div>
           <div className="mt-2 w-auto max-w-[250px]">
             <div className="relative">
@@ -233,7 +242,7 @@ const FilterCard: React.FC<FilterCardProps> = ({ setFilteredData, setLoading }) 
                 getAriaValueText={valuetext}
               />
             </div>
-            <div className="flex items-center outfitRegular justify-between text-sm text-neutral-600">
+            <div className="outfitRegular flex items-center justify-between text-sm text-neutral-600">
               <div className="">₹ {formatPrice(value[0])}</div>
               <div className="">₹ {formatPrice(value[1])}</div>
             </div>
@@ -242,7 +251,7 @@ const FilterCard: React.FC<FilterCardProps> = ({ setFilteredData, setLoading }) 
         <div className="">
           <div className="flex items-center space-x-1">
             <img src={RatingIcon} className="w-5" />
-            <h1 className="text-[#1C1C1C] text-lg outfitMedium">Rating</h1>
+            <h1 className="outfitMedium text-lg text-[#1C1C1C]">Rating</h1>
           </div>
           <div>
             {[
@@ -261,16 +270,16 @@ const FilterCard: React.FC<FilterCardProps> = ({ setFilteredData, setLoading }) 
           </div>
         </div>
         <div className="">
-        {filtersChanged && (
-          <div className="">
-            <button
-              onClick={applyFilters}
-              className="bg-[#533FDB] text-white py-2 px-[116px] rounded"
-            >
-              Apply
-            </button>
-          </div>
-        )}
+          {filtersChanged && (
+            <div className="">
+              <button
+                onClick={applyFilters}
+                className="rounded bg-[#533FDB] px-[116px] py-2 text-white"
+              >
+                Apply
+              </button>
+            </div>
+          )}
         </div>
       </div>
     </Card>
