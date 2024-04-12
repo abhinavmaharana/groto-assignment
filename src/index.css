@@ -70,9 +70,13 @@
     * {
       @apply border-border;
     }
-    body {
+    /* body {
       @apply bg-background text-foreground;
-    }
+    } */
+  }
+
+  .body {
+    background-color: #F6F8FA;
   }
 
   .outfitThin {
@@ -140,13 +144,8 @@
 
   .bordersearch{
     box-shadow: 0px 29px 63px 0px #F3F3F31A;
-
-box-shadow: 0px 114px 114px 0px #F3F3F317;
-
-box-shadow: 0px 257px 154px 0px #F3F3F30D;
-
-box-shadow: 0px 456px 182px 0px #F3F3F303;
-
-box-shadow: 1px 713px 200px 0px #F3F3F300;
-
+    box-shadow: 0px 114px 114px 0px #F3F3F317;
+    box-shadow: 0px 257px 154px 0px #F3F3F30D;
+    box-shadow: 0px 456px 182px 0px #F3F3F303;
+    box-shadow: 1px 713px 200px 0px #F3F3F300;
   }
