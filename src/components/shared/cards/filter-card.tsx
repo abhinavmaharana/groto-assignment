@@ -89,15 +89,16 @@ const FilterCard: React.FC<FilterCardProps> = ({
   }, [selectedRatings]);
 
   useEffect(() => {
+    // Check if either the search query or filters other than searchQuery changed
     const isFiltersChanged =
       JSON.stringify(filters) !==
-      JSON.stringify({
-        value: [0, 100000000],
-        selectedRatings: [],
-        searchQuery: "",
-      });
+        JSON.stringify({
+          value: [0, 100000000],
+          selectedRatings: [],
+          searchQuery: "",
+        }) || searchQuery.trim() !== "";
     setFiltersChanged(isFiltersChanged);
-  }, [filters]);
+  }, [filters, searchQuery]);
 
   const applyFilters = () => {
     // Set loading state to true to show shimmer

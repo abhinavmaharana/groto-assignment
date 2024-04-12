@@ -27,7 +27,7 @@ const formatPrice = (price: number): string => {
 
 const PropertyCard: React.FC<Props> = (props) => {
   return (
-    <Card className="rounded-lg border border-gray-200 shadow-md">
+    <Card className="rounded-lg border border-gray-200 w-[330px] -ml-4 md:w-full md:ml-0 shadow-md">
       <div className="flex flex-col items-center p-5 md:flex-row md:space-x-5 md:p-0">
         <div>
           <img
